@@ -1,0 +1,71 @@
+﻿<Window x:Class="KindergardenFood.Account"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KindergardenFood"
+        mc:Ignorable="d"
+        Title="Account" Height="650" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Grid>
+        <Grid x:Name="Header" VerticalAlignment="Top">
+            <WrapPanel x:Name="HeaderButtons" VerticalAlignment="Center" Margin="10" HorizontalAlignment="Center">
+                <ToggleButton x:Name="ProductsButton" Style="{StaticResource HeaderButton}" VerticalAlignment="Top" Checked="ProductsButton_Checked" Click="HeaderButtonsClick" Unchecked="HeaderButtonsUnchecked">
+                    <StackPanel Margin="-3">
+                        <TextBlock Text="Продукты" Margin="-2,-0,-2,3" Background="White"/>
+                        <Grid Height="2"/>
+                    </StackPanel>
+                </ToggleButton>
+                <ToggleButton x:Name="EatingButton" Style="{StaticResource HeaderButton}" VerticalAlignment="Top" Checked="EatingButton_Checked" Click="HeaderButtonsClick" Unchecked="HeaderButtonsUnchecked">
+                    <StackPanel Margin="-3">
+                        <TextBlock Text="Питающиеся" Margin="-2,-0,-2,3" Background="White"/>
+                        <Grid Height="2"/>
+                    </StackPanel>
+                </ToggleButton>
+                <ToggleButton x:Name="CookedButton" Style="{StaticResource HeaderButton}" VerticalAlignment="Top" Checked="CookedButton_Checked" Click="HeaderButtonsClick" Unchecked="HeaderButtonsUnchecked">
+                    <StackPanel Margin="-3">
+                        <TextBlock Text="Приготовлено" Margin="-2,-0,-2,3" Background="White"/>
+                        <Grid Height="2"/>
+                    </StackPanel>
+                </ToggleButton>
+                <ToggleButton x:Name="NormsButton" Style="{StaticResource HeaderButton}" VerticalAlignment="Top" Checked="NormsButton_Checked" Click="HeaderButtonsClick" Unchecked="HeaderButtonsUnchecked">
+                    <StackPanel Margin="-3">
+                        <TextBlock Text="Нормы" Margin="-2,-0,-2,3" Background="White"/>
+                        <Grid Height="2"/>
+                    </StackPanel>
+                </ToggleButton>
+            </WrapPanel>
+        </Grid>
+        <Grid Margin="0,50,0,70">
+            <ContentControl x:Name="ContentController"/>
+            <TextBlock x:Name="WelcomeTB" Text="Выберете одну из таблиц вверху" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36" FontWeight="Bold"/>
+        </Grid>
+        <GroupBox Header="Отчёты" Margin="0,0,0,0" VerticalAlignment="Bottom">
+            <Grid>
+                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <DatePicker x:Name="StartDatePicker" SelectedDateChanged="StartDatePicker_SelectedDateChanged" Margin="10" Padding="4"/>
+                    <DatePicker x:Name="EndDatePicker" SelectedDateChanged="EndDatePicker_SelectedDateChanged" Margin="10" Padding="4"/>
+                </WrapPanel>
+                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ComboBox x:Name="SelectedCat" SelectedIndex="0" Width="120" IsEditable="False" IsTextSearchEnabled="False">
+                        <ComboBoxItem Content="Сад"/>
+                        <ComboBoxItem Content="Ясли"/>
+                    </ComboBox>
+                </WrapPanel>
+                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button x:Name="SumReport_NoGroupingButton" Style="{StaticResource ReportsButton}" Click="SumReport_NoGroupingButton_Click">
+                        <StackPanel Margin="-3">
+                            <TextBlock Text="Накопительная" Margin="-2,-0,-2,1" Background="White"/>
+                            <Grid Height="1"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="SumReportButton" Style="{StaticResource ReportsButton}" Click="SumReportButton_Click">
+                        <StackPanel Margin="-3">
+                            <TextBlock Text="Расход продуктов" Margin="-2,-0,-2,1" Background="White"/>
+                            <Grid Height="1"/>
+                        </StackPanel>
+                    </Button>
+                </WrapPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

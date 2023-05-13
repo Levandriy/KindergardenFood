@@ -1,0 +1,514 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище KindergardenFoodDataBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cooked">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Record_date" Type="date" />
+          <Property Name="Food_ID" Type="int" Nullable="false" />
+          <Property Name="Unit_ID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="float" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Category_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Food_Norm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="Food_ID" Type="int" Nullable="false" />
+          <Property Name="Norm_value" Type="float" Nullable="false" />
+          <Property Name="Norm_date" Type="date" />
+        </EntityType>
+        <EntityType Name="Kids_eating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Category" Type="int" Nullable="false" />
+          <Property Name="Record_date" Type="date" />
+        </EntityType>
+        <EntityType Name="Security_levels">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="20" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Units">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Cooked__Category__0E6E26BF">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Cooked" Type="Self.Cooked" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cooked">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cooked__Food_ID__0C85DE4D">
+          <End Role="Food" Type="Self.Food" Multiplicity="1" />
+          <End Role="Cooked" Type="Self.Cooked" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cooked">
+              <PropertyRef Name="Food_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cooked__Unit_ID__0D7A0286">
+          <End Role="Units" Type="Self.Units" Multiplicity="1" />
+          <End Role="Cooked" Type="Self.Cooked" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cooked">
+              <PropertyRef Name="Unit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Food_Norm__Categ__7D439ABD">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Food_Norm" Type="Self.Food_Norm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Food_Norm">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Food_Norm__Food___7E37BEF6">
+          <End Role="Food" Type="Self.Food" Multiplicity="1" />
+          <End Role="Food_Norm" Type="Self.Food_Norm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Food_Norm">
+              <PropertyRef Name="Food_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kids_eati__Categ__797309D9">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Kids_eating" Type="Self.Kids_eating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kids_eating">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__Level__08B54D69">
+          <End Role="Security_levels" Type="Self.Security_levels" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Security_levels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище KindergardenFoodDataBaseModelContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cooked" EntityType="Self.Cooked" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Food_Norm" EntityType="Self.Food_Norm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kids_eating" EntityType="Self.Kids_eating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Security_levels" EntityType="Self.Security_levels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Units" EntityType="Self.Units" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cooked__Category__0E6E26BF" Association="Self.FK__Cooked__Category__0E6E26BF">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Cooked" EntitySet="Cooked" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cooked__Food_ID__0C85DE4D" Association="Self.FK__Cooked__Food_ID__0C85DE4D">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Cooked" EntitySet="Cooked" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cooked__Unit_ID__0D7A0286" Association="Self.FK__Cooked__Unit_ID__0D7A0286">
+            <End Role="Units" EntitySet="Units" />
+            <End Role="Cooked" EntitySet="Cooked" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Food_Norm__Categ__7D439ABD" Association="Self.FK__Food_Norm__Categ__7D439ABD">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Food_Norm" EntitySet="Food_Norm" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Food_Norm__Food___7E37BEF6" Association="Self.FK__Food_Norm__Food___7E37BEF6">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Food_Norm" EntitySet="Food_Norm" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kids_eati__Categ__797309D9" Association="Self.FK__Kids_eati__Categ__797309D9">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Kids_eating" EntitySet="Kids_eating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__Level__08B54D69" Association="Self.FK__Users__Level__08B54D69">
+            <End Role="Security_levels" EntitySet="Security_levels" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KindergardenFoodDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Food_Norm" Relationship="Self.FK__Food_Norm__Categ__571DF1D5" FromRole="Categories" ToRole="Food_Norm" />
+          <NavigationProperty Name="Kids_eating" Relationship="Self.FK__Kids_eati__Categ__534D60F1" FromRole="Categories" ToRole="Kids_eating" />
+          <NavigationProperty Name="Cooked" Relationship="KindergardenFoodDataBaseModel.FK__Cooked__Category__0E6E26BF" FromRole="Categories" ToRole="Cooked" />
+        </EntityType>
+        <EntityType Name="Cooked">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Record_date" Type="DateTime" Precision="0" />
+          <Property Name="Food_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Food" Relationship="Self.FK__Cooked__Food_ID__5CD6CB2B" FromRole="Cooked" ToRole="Food" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Unit_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Units" Relationship="KindergardenFoodDataBaseModel.FK__Cooked__Unit_ID__0D7A0286" FromRole="Cooked" ToRole="Units" />
+          <Property Name="Category_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categories" Relationship="KindergardenFoodDataBaseModel.FK__Cooked__Category__0E6E26BF" FromRole="Cooked" ToRole="Categories" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cooked" Relationship="Self.FK__Cooked__Food_ID__5CD6CB2B" FromRole="Food" ToRole="Cooked" />
+          <NavigationProperty Name="Food_Norm" Relationship="Self.FK__Food_Norm__Food___5812160E" FromRole="Food" ToRole="Food_Norm" />
+        </EntityType>
+        <EntityType Name="Food_Norm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Food_ID" Type="Int32" Nullable="false" />
+          <Property Name="Norm_value" Type="Double" Nullable="false" />
+          <Property Name="Norm_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK__Food_Norm__Categ__571DF1D5" FromRole="Food_Norm" ToRole="Categories" />
+          <NavigationProperty Name="Food" Relationship="Self.FK__Food_Norm__Food___5812160E" FromRole="Food_Norm" ToRole="Food" />
+        </EntityType>
+        <EntityType Name="Kids_eating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="Int32" Nullable="false" />
+          <Property Name="Record_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK__Kids_eati__Categ__534D60F1" FromRole="Kids_eating" ToRole="Categories" />
+        </EntityType>
+        <EntityType Name="Security_levels">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__Level__628FA481" FromRole="Security_levels" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Units">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cooked" Relationship="KindergardenFoodDataBaseModel.FK__Cooked__Unit_ID__0D7A0286" FromRole="Units" ToRole="Cooked" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Security_levels" Relationship="Self.FK__Users__Level__628FA481" FromRole="Users" ToRole="Security_levels" />
+        </EntityType>
+        <Association Name="FK__Food_Norm__Categ__571DF1D5">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Food_Norm" Type="Self.Food_Norm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Food_Norm">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Kids_eati__Categ__534D60F1">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Kids_eating" Type="Self.Kids_eating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Kids_eating">
+              <PropertyRef Name="Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cooked__Food_ID__5CD6CB2B">
+          <End Role="Food" Type="Self.Food" Multiplicity="1" />
+          <End Role="Cooked" Type="Self.Cooked" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cooked">
+              <PropertyRef Name="Food_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Food_Norm__Food___5812160E">
+          <End Role="Food" Type="Self.Food" Multiplicity="1" />
+          <End Role="Food_Norm" Type="Self.Food_Norm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Food_Norm">
+              <PropertyRef Name="Food_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__Level__628FA481">
+          <End Role="Security_levels" Type="Self.Security_levels" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Security_levels">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="Level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KindergardenFoodDataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="Cooked" EntityType="Self.Cooked" />
+          <EntitySet Name="Food" EntityType="Self.Food" />
+          <EntitySet Name="Food_Norm" EntityType="Self.Food_Norm" />
+          <EntitySet Name="Kids_eating" EntityType="Self.Kids_eating" />
+          <EntitySet Name="Security_levels" EntityType="Self.Security_levels" />
+          <EntitySet Name="Units" EntityType="Self.Units" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Food_Norm__Categ__571DF1D5" Association="Self.FK__Food_Norm__Categ__571DF1D5">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Food_Norm" EntitySet="Food_Norm" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Kids_eati__Categ__534D60F1" Association="Self.FK__Kids_eati__Categ__534D60F1">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Kids_eating" EntitySet="Kids_eating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cooked__Food_ID__5CD6CB2B" Association="Self.FK__Cooked__Food_ID__5CD6CB2B">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Cooked" EntitySet="Cooked" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Food_Norm__Food___5812160E" Association="Self.FK__Food_Norm__Food___5812160E">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Food_Norm" EntitySet="Food_Norm" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__Level__628FA481" Association="Self.FK__Users__Level__628FA481">
+            <End Role="Security_levels" EntitySet="Security_levels" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cooked__Unit_ID__0D7A0286" Association="KindergardenFoodDataBaseModel.FK__Cooked__Unit_ID__0D7A0286">
+            <End Role="Units" EntitySet="Units" />
+            <End Role="Cooked" EntitySet="Cooked" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cooked__Category__0E6E26BF" Association="KindergardenFoodDataBaseModel.FK__Cooked__Category__0E6E26BF">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Cooked" EntitySet="Cooked" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__Cooked__Unit_ID__0D7A0286">
+          <End Type="KindergardenFoodDataBaseModel.Units" Role="Units" Multiplicity="1" />
+          <End Type="KindergardenFoodDataBaseModel.Cooked" Role="Cooked" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cooked">
+              <PropertyRef Name="Unit_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cooked__Category__0E6E26BF">
+          <End Type="KindergardenFoodDataBaseModel.Categories" Role="Categories" Multiplicity="1" />
+          <End Type="KindergardenFoodDataBaseModel.Cooked" Role="Cooked" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cooked">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KindergardenFoodDataBaseModelContainer" CdmEntityContainer="KindergardenFoodDataBaseEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="KindergardenFoodDataBaseModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cooked">
+            <EntityTypeMapping TypeName="KindergardenFoodDataBaseModel.Cooked">
+              <MappingFragment StoreEntitySet="Cooked">
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+                <ScalarProperty Name="Unit_ID" ColumnName="Unit_ID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Record_date" ColumnName="Record_date" />
+                <ScalarProperty Name="Food_ID" ColumnName="Food_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food">
+            <EntityTypeMapping TypeName="KindergardenFoodDataBaseModel.Food">
+              <MappingFragment StoreEntitySet="Food">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food_Norm">
+            <EntityTypeMapping TypeName="KindergardenFoodDataBaseModel.Food_Norm">
+              <MappingFragment StoreEntitySet="Food_Norm">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Food_ID" ColumnName="Food_ID" />
+                <ScalarProperty Name="Norm_value" ColumnName="Norm_value" />
+                <ScalarProperty Name="Norm_date" ColumnName="Norm_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kids_eating">
+            <EntityTypeMapping TypeName="KindergardenFoodDataBaseModel.Kids_eating">
+              <MappingFragment StoreEntitySet="Kids_eating">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Record_date" ColumnName="Record_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Security_levels">
+            <EntityTypeMapping TypeName="KindergardenFoodDataBaseModel.Security_levels">
+              <MappingFragment StoreEntitySet="Security_levels">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="KindergardenFoodDataBaseModel.Units">
+              <MappingFragment StoreEntitySet="Units">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="KindergardenFoodDataBaseModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
