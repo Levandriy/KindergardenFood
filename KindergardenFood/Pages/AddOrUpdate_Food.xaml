@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KindergardenFood.Pages"
         mc:Ignorable="d"
-        Title="Добавить/изменить продукт" Height="250" Width="400" Loaded="Window_Loaded">
+        Title="Добавить/изменить продукт" Width="400" Loaded="Window_Loaded" ResizeMode="NoResize" SizeToContent="Height" Topmost="True">
     <Grid>
         <StackPanel x:Name="MainView" DataContext="{Binding}" Margin="10">
             <TextBlock Text="Название" Margin="10" Style="{StaticResource HeaderBlock}"/>
             <TextBox Height="40" Text="{Binding Title}" Margin="10" Style="{StaticResource TextBoxAddEdit}"/>
+            <Button x:Name="Save" Content="Добавить/изменить" Click="Save_Click" Style="{StaticResource AddEditButton}"/>
         </StackPanel>
-        <Button x:Name="Save" Content="Добавить/изменить" Click="Save_Click" Style="{StaticResource AddEditButton}"/>
     </Grid>
 </Window>

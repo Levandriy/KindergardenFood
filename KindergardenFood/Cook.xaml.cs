@@ -33,6 +33,20 @@ namespace KindergardenFood
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Load(string.Empty);
+            var pfirst = (from eating in App._context.Kids_eating
+                          where eating.Category == 1
+                          orderby eating.Record_date descending
+                          select eating.Quantity).FirstOrDefault();
+            var psecond = (from eating in App._context.Kids_eating
+                           where eating.Category == 2
+                           orderby eating.Record_date descending
+                           select eating.Quantity).FirstOrDefault();
+            var context = new
+            {
+                PFirst = pfirst,
+                PSecond = psecond,
+            };
+            Header.DataContext = context;
         }
         private void Load(string text)
         {

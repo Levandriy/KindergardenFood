@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KindergardenFood.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,12 @@ namespace KindergardenFood
             var window = new Cook();
             window.Show();
             this.Close();
+        }
+
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new About();
+            win.Show();
         }
     }
 }

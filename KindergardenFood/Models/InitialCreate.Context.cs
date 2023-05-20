@@ -18,6 +18,7 @@ namespace KindergardenFood.Models
         public KindergardenFoodDataBaseEntities()
             : base("name=KindergardenFoodDataBaseEntities")
         {
+            Database.CreateIfNotExists();
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

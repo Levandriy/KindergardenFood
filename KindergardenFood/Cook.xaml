@@ -5,12 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KindergardenFood"
         mc:Ignorable="d"
-        Title="Cook" Height="450" Width="800" Loaded="Window_Loaded" MouseUp="Window_MouseUp" Closing="Window_Closing" WindowState="Maximized" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+        Title="Повар" Height="450" Width="800" Loaded="Window_Loaded" MouseUp="Window_MouseUp" Closing="Window_Closing" WindowState="Maximized" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
-        <StackPanel x:Name="Header" VerticalAlignment="Top" Margin="10,20,10,10">
-            <TextBox x:Name="SearchBox" MinHeight="30" Style="{StaticResource TextBoxSearch}" TextChanged="SearchBox_TextChanged"/>
-        </StackPanel>
-        <ScrollViewer Margin="10,70,10,70">
+        <Grid x:Name="Header" VerticalAlignment="Top" Margin="10,20,10,10" DataContext="{Binding}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="SearchBox" Height="40" Margin="10" Style="{StaticResource TextBoxSearch}" TextChanged="SearchBox_TextChanged"/>
+            <StackPanel Grid.Column="1">
+                <TextBlock x:Name="FirstPortionsTB" Text="{Binding PFirst,StringFormat='Порций для сада: {0}'}" Style="{DynamicResource HeaderBlock}"/>
+                <TextBlock x:Name="SecondPortionsTB" Text="{Binding PSecond,StringFormat='Порций для ясель: {0}'}" Style="{DynamicResource HeaderBlock}"/>
+            </StackPanel>
+        </Grid>
+        <ScrollViewer Margin="10,100,10,70">
             <ItemsControl x:Name="DataPanel" ItemsSource="{Binding}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -32,16 +40,8 @@
                                     <TextBlock Text="{Binding FirstNorm}" TextAlignment="Center" Padding="10"/>
                                 </WrapPanel>
                                 <WrapPanel>
-                                    <TextBlock Text="Порций для сада:" TextAlignment="Center" Padding="10" />
-                                    <TextBlock Text="{Binding PortionsFirst}" TextAlignment="Center" Padding="10"/>
-                                </WrapPanel>
-                                <WrapPanel>
                                     <TextBlock Text="Норма для ясель:" TextAlignment="Center" Padding="10" />
                                     <TextBlock Text="{Binding SecondNorm}" TextAlignment="Center" Padding="10"/>
-                                </WrapPanel>
-                                <WrapPanel>
-                                    <TextBlock Text="Порций для ясель:" TextAlignment="Center" Padding="10" />
-                                    <TextBlock Text="{Binding PortionsSecond}" TextAlignment="Center" Padding="10"/>
                                 </WrapPanel>
                             </StackPanel>
                         </Border>

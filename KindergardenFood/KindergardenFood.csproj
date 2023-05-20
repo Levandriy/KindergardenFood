@@ -36,6 +36,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Иконка.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -74,6 +77,9 @@
     <Compile Include="Classes\Views.cs" />
     <Compile Include="Cook.xaml.cs">
       <DependentUpon>Cook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AddOrUpdate_Cooked.xaml.cs">
       <DependentUpon>AddOrUpdate_Cooked.xaml</DependentUpon>
@@ -125,6 +131,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AddOrUpdate_Cooked.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,6 +246,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Иконка.ico" />
+    <Resource Include="Pages\WinsIcon.ico" />
+    <Resource Include="Pages\IconPixel.jpg" />
+    <Resource Include="WinsIcon.png" />
+    <Resource Include="Pages\WinsIcon.png" />
+    <Resource Include="Pages\KidsEating.jpg" />
     <Resource Include="UserControls\refresh-icon.png" />
     <Resource Include="UserControls\move-down-icon.png" />
     <Resource Include="pen-icon.png" />
