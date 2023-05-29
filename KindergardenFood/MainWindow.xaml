@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KindergardenFood"
         mc:Ignorable="d"
-        Title="Выбор пользователя" Height="450" Width="750" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Выбор пользователя" Height="450" Width="750" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True">
     <Grid>
         <WrapPanel x:Name="Buttons" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button x:Name="Accountant" Margin="10" Style="{StaticResource ToolsButton}" Width="300" Height="300" Click="Accountant_Click">
@@ -39,7 +39,7 @@
         </WrapPanel>
         <WrapPanel VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <TextBlock Margin="10" Text="© Богачева П.В., 2023" FontSize="24" VerticalAlignment="Center"/>
-            <Image Source="/WinsIcon.png" Width="30" Height="30" Margin="10" Stretch="UniformToFill"/>
+            <Image Source="/teddy-bear-icon.png" Width="30" Height="30" Margin="10"/>
             <Button x:Name="AboutButton" Content="О программе" Style="{DynamicResource AddEditButton}" Click="AboutButton_Click"/>
         </WrapPanel>
     </Grid>

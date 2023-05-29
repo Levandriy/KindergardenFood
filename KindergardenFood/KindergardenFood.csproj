@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Иконка.ico</ApplicationIcon>
+    <ApplicationIcon>teddy-bear-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -246,6 +246,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="teddy-bear-icon.ico" />
+    <Resource Include="Pages\teddy-bear-icon.png" />
+    <Resource Include="teddy-bear-icon.png" />
     <Resource Include="Иконка.ico" />
     <Resource Include="Pages\WinsIcon.ico" />
     <Resource Include="Pages\IconPixel.jpg" />

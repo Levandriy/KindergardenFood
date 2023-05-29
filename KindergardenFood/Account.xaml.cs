@@ -118,32 +118,46 @@ namespace KindergardenFood
                 Debug.WriteLine($"Накопительная за {DateTime.Now: dd.MM.yyyy}");
                 sheet.Name = $"Накопительная за {DateTime.Now: dd.MM.yyyy}";
                 //Шапка таблицы
-                sheet.Cells[10, 1] = "Дата";
-                sheet.Cells[10, 2] = "Продукт";
-                sheet.Cells[10, 3] = "Кол-во порций";
-                sheet.Cells[10, 4] = "Ед. изм.";
-                sheet.Cells[10, 5] = "Цена";
-                sheet.Cells[10, 6] = "Кол-во";
-                sheet.Cells[10, 7] = "Сумма";
-                Excel.Range header = sheet.Range[sheet.Cells[10, 1], sheet.Cells[10, 7]];
-                header.Font.Size = 16;
+                sheet.Cells[1, 1] = $"Накопительная ведомость по продуктам питания";
+                sheet.Range[sheet.Cells[1, 1], sheet.Cells[1, 7]].Merge();
+                sheet.Cells[2, 1] = $"период с {App.StartPeriod: dd.MM.yyyy} по {App.EndPeriod: dd.MM.yyyy}";
+                sheet.Range[sheet.Cells[2, 1], sheet.Cells[2, 7]].Merge();
+                sheet.Cells[4, 1] = "Учреждение: МБДОУ №2 г. Азова";
+                sheet.Range[sheet.Cells[4, 1], sheet.Cells[4, 3]].Merge();
+                sheet.Cells[5, 1] = "Структруное подразделение МБДОУ №2 г.Азова";
+                sheet.Range[sheet.Cells[5, 1], sheet.Cells[5, 3]].Merge();
+                sheet.Cells[6, 1] = "МОЛ Прохорова Л.В.";
+                sheet.Range[sheet.Cells[6, 1], sheet.Cells[6, 3]].Merge();
+                sheet.Cells[7, 1] = "Единица измерения: руб.";
+                sheet.Range[sheet.Cells[7, 1], sheet.Cells[7, 3]].Merge();
+                sheet.Cells[9, 1] = "Дата";
+                sheet.Cells[9, 2] = "Продукт";
+                sheet.Cells[9, 3] = "Кол-во порций";
+                sheet.Cells[9, 4] = "Ед. изм.";
+                sheet.Cells[9, 5] = "Цена";
+                sheet.Cells[9, 6] = "Кол-во";
+                sheet.Cells[9, 7] = "Сумма";
+                Excel.Range header = sheet.Range[sheet.Cells[1, 1], sheet.Cells[1, 7]];
                 header.Font.Bold = true;
-                header.Borders.Weight = 4;
+                Excel.Range header2 = sheet.Range[sheet.Cells[1, 1], sheet.Cells[2, 7]];
+                header2.Font.Size = 16;
+                header2.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                header2.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 var arr = query.ToArray();
                 for (int i = 0; i < arr.Count(); i++)
                 {
-                    sheet.Cells[11 + i, 1] = arr[i].Date;
-                    sheet.Cells[11 + i, 2] = arr[i].Food.ToUpper();
-                    sheet.Cells[11 + i, 3] = arr[i].Portions;
-                    sheet.Cells[11 + i, 4] = arr[i].Unit.ToUpper();
-                    sheet.Cells[11 + i, 5] = arr[i].Price;
-                    sheet.Cells[11 + i, 6] = arr[i].Quantity;
-                    sheet.Cells[11 + i, 7] = arr[i].Sum;
+                    sheet.Cells[10 + i, 1] = arr[i].Date;
+                    sheet.Cells[10 + i, 2] = arr[i].Food.ToUpper();
+                    sheet.Cells[10 + i, 3] = arr[i].Portions;
+                    sheet.Cells[10 + i, 4] = arr[i].Unit.ToUpper();
+                    sheet.Cells[10 + i, 5] = arr[i].Price;
+                    sheet.Cells[10 + i, 6] = arr[i].Quantity;
+                    sheet.Cells[10 + i, 7] = arr[i].Sum;
                 }
-                sheet.Cells[arr.Count() + 11, 1] = "Итого";
-                sheet.Range[sheet.Cells[arr.Count() + 11, 1], sheet.Cells[arr.Count() + 11, 6]].Merge();
-                sheet.Cells[arr.Count() + 11, 7] = sum;
-                Excel.Range values = sheet.Range[sheet.Cells[11, 1], sheet.Cells[arr.Count() + 11, 7]];
+                sheet.Cells[arr.Count() + 10, 1] = "Итого";
+                sheet.Range[sheet.Cells[arr.Count() + 10, 1], sheet.Cells[arr.Count() + 10, 6]].Merge();
+                sheet.Cells[arr.Count() + 10, 7] = sum;
+                Excel.Range values = sheet.Range[sheet.Cells[9, 1], sheet.Cells[arr.Count() + 10, 7]];
                 values.EntireColumn.AutoFit();
                 values.Font.Size = 14;
                 values.Borders.Weight = 2;
@@ -192,9 +206,9 @@ namespace KindergardenFood
                     line.Norm = Norms.Norm_value;
                     line.Quantity = line.Cooked.Quantity;
                     line.Price = line.Cooked.Price * line.Quantity;
-                    line.PerPerson_Quantity = line.Cooked.Quantity / Days / Kids.Quantity;
-                    line.PerPerson_Price = line.Cooked.Price * line.Cooked.Quantity / Days / Kids.Quantity;
-                    line.Difference = line.PerPerson_Quantity / line.Norm;
+                    line.PerPerson_Quantity = line.Cooked.Quantity / (Kids.Quantity * Days);
+                    line.PerPerson_Price = line.Cooked.Price * line.PerPerson_Quantity;
+                    line.Difference = line.PerPerson_Quantity / line.Norm * 100;
                     sumReports.Add(line);
                 }
             }
@@ -218,7 +232,12 @@ namespace KindergardenFood
                     Excel.Workbook wb = app.Workbooks.Add();
                     Excel.Worksheet sheet = (Excel.Worksheet)app.Worksheets.get_Item(1);
                     sheet.Name = $"Расход продуктов за {DateTime.Now: dd.MM.yyyy}";
-
+                    sheet.Cells[1, 1] = $"МБДОУ № 2 г.Азова подразделение МБДОУ №2 г.Азова";
+                    sheet.Range[sheet.Cells[1, 1], sheet.Cells[1, 6]].Merge();
+                    sheet.Cells[2, 1] = $"Отчёт по расходу продуктов питания";
+                    sheet.Range[sheet.Cells[2, 1], sheet.Cells[2, 6]].Merge();
+                    sheet.Cells[3, 1] = $"за период с {App.StartPeriod: dd.MM.yyyy} по {App.EndPeriod: dd.MM.yyyy}";
+                    sheet.Range[sheet.Cells[3, 1], sheet.Cells[3, 6]].Merge();
                     sheet.Cells[4, 1] = $"Категоря: {Cat}";
                     sheet.Range[sheet.Cells[4, 1], sheet.Cells[4, 2]].Merge();
                     sheet.Cells[4, 3] = $"Количество детодней: {kids_days}";
@@ -229,11 +248,11 @@ namespace KindergardenFood
                     sheet.Cells[6, 2] = "Ед. изм.";
                     sheet.Range[sheet.Cells[6, 2], sheet.Cells[7, 2]].Merge();
                     sheet.Cells[6, 3] = "Израсходовано";
-                    sheet.Range[sheet.Cells[6, 3], sheet.Cells[6, 4]].Merge();
+                    sheet.Range[sheet.Cells[6, 3], sheet.Cells[7, 4]].Merge();
                     sheet.Cells[7, 3] = "кол-во";
                     sheet.Cells[7, 4] = "Сумма";
                     sheet.Cells[6, 5] = "На 1 ребенка";
-                    sheet.Range[sheet.Cells[6, 5], sheet.Cells[6, 6]].Merge();
+                    sheet.Range[sheet.Cells[6, 5], sheet.Cells[7, 6]].Merge();
                     sheet.Cells[7, 5] = "кол-во";
                     sheet.Cells[7, 6] = "Сумма";
                     sheet.Cells[6, 7] = "норма на 1реб";
@@ -253,14 +272,14 @@ namespace KindergardenFood
                     var arr = list.ToArray();
                     for (int i = 0; i < arr.Count(); i++)
                     {
-                        sheet.Cells[8 + i, 1] = arr[i].First().Food.Title.ToUpper();
-                        sheet.Cells[8 + i, 2] = arr[i].First().Unit.Title.ToUpper();
-                        sheet.Cells[8 + i, 3] = arr[i].Sum(x => x.Quantity);
-                        sheet.Cells[8 + i, 4] = arr[i].Sum(x => x.Price);
-                        sheet.Cells[8 + i, 5] = arr[i].Sum(x => x.PerPerson_Quantity);
-                        sheet.Cells[8 + i, 6] = arr[i].Sum(x => x.PerPerson_Price);
-                        sheet.Cells[8 + i, 7] = arr[i].Average(x => x.Norm);
-                        sheet.Cells[8 + i, 8] = (arr[i].Sum(x => x.Difference) + 1) * 100;
+                        sheet.Cells[5 + i, 1] = arr[i].First().Food.Title.ToUpper();
+                        sheet.Cells[5 + i, 2] = arr[i].First().Unit.Title.ToUpper();
+                        sheet.Cells[5 + i, 3] = arr[i].Sum(x => x.Quantity);
+                        sheet.Cells[5 + i, 4] = arr[i].Sum(x => x.Price);
+                        sheet.Cells[5 + i, 5] = arr[i].Sum(x => x.PerPerson_Quantity);
+                        sheet.Cells[5 + i, 6] = arr[i].Sum(x => x.PerPerson_Price);
+                        sheet.Cells[5 + i, 7] = arr[i].Average(x => x.Norm);
+                        sheet.Cells[5 + i, 8] = arr[i].Sum(x => x.Difference);
                     }
                     //Форматирование значений
                     Excel.Range values = sheet.Range[sheet.Cells[8, 1], sheet.Cells[arr.Count() + 7, 8]];
@@ -272,7 +291,7 @@ namespace KindergardenFood
                     sheet.Cells[arr.Count() + 8, 1] = "Всего";
                     sheet.Cells[arr.Count() + 8, 4] = arr.Sum(x => x.Sum(y => y.Price));
                     sheet.Cells[arr.Count() + 8, 6] = arr.Sum(x => x.Sum(y => y.PerPerson_Price));
-                    sheet.Cells[arr.Count() + 8, 8] = (arr.Average(x => x.Average(y => y.Norm)) + 1) * 100;
+                    sheet.Cells[arr.Count() + 8, 8] = arr.Average(x => x.Sum(y => y.Difference));
 
                     //Форматирование "Итого"
                     Excel.Range total = sheet.Range[sheet.Cells[arr.Count() + 8, 1], sheet.Cells[arr.Count() + 8, 8]];

@@ -31,7 +31,7 @@
                         FontSize="32"
                         TextWrapping="Wrap"
                         TextAlignment="Center"/>
-            <Image Source="/WinsIcon.png" Width="30" Height="30" Margin="10" Stretch="UniformToFill"/>
+            <Image Source="/Pages/teddy-bear-icon.png" Width="50" Height="50" Margin="5"/>
         </WrapPanel>
     </Grid>
 </Window>
