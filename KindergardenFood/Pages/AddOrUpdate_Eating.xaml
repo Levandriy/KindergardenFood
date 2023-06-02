@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KindergardenFood.Pages"
         mc:Ignorable="d"
-        Title="Добавить/изменить запись в журнале Питающиеся" Width="400" Loaded="Window_Loaded" ResizeMode="NoResize" SizeToContent="Height" Topmost="True" Icon="/Pages/WinsIcon.png">
+        Title="Добавить/изменить запись в журнале Питающиеся" Width="400" Loaded="Window_Loaded" ResizeMode="NoResize" SizeToContent="Height" Topmost="True">
     <Grid>
         <StackPanel x:Name="MainView" DataContext="{Binding}" Margin="10">
             <TextBlock Text="Категория" Margin="10" Style="{StaticResource HeaderBlock}"/>
